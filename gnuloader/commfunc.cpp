@@ -8,6 +8,7 @@
 #define MAXEXT    32
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "commfunc.h"
 //#include "appcfg.h"
@@ -54,14 +55,14 @@ void copyfile(char *destination, char *source)
 
     in = fopen(source,"rb");
     if (in == NULL) {
-      QString t(source);
-      printf("Error: Open %s\n",t.latin1());
+	  Q3CString t(source);
+      printf("Error: Open %s\n",t.data());
       return;
       }
     out = fopen(destination,"wb");
     if (out == NULL) {
-      QString t(destination);
-      printf("Error: Open %s\n",t.latin1());
+	  Q3CString t(destination);
+      printf("Error: Open %s\n",t.data());
       return;
       }
 
@@ -75,7 +76,7 @@ void copyfile(char *destination, char *source)
 }
 //---------------------------------------------------------------------------
 
-QString FileFromPath(QString /*apath*/)
+Q3CString FileFromPath(Q3CString apath)
 {
 //   char drive[MAXDRIVE];
 //   char dir[MAXDIR];
@@ -83,11 +84,11 @@ QString FileFromPath(QString /*apath*/)
    char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(name) + QString(ext);
+   return Q3CString(name) + Q3CString(ext);
 }
 //---------------------------------------------------------------------------
 
-QString FileWoExtFromPath(QString /*apath*/)
+Q3CString FileWoExtFromPath(Q3CString apath)
 {
 //   char drive[MAXDRIVE];
 //   char dir[MAXDIR];
@@ -95,11 +96,11 @@ QString FileWoExtFromPath(QString /*apath*/)
 //   char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(name);
+   return Q3CString(name);
 }
 //---------------------------------------------------------------------------
 
-QString ExtFromPath(QString /*apath*/)
+Q3CString ExtFromPath(Q3CString apath)
 {
 //   char drive[MAXDRIVE];
 //   char dir[MAXDIR];
@@ -107,11 +108,11 @@ QString ExtFromPath(QString /*apath*/)
    char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(ext);
+   return Q3CString(ext);
 }
 //---------------------------------------------------------------------------
 
-QString DirFromPath(QString /*apath*/)
+Q3CString DirFromPath(Q3CString apath)
 {
    char drive[MAXDRIVE];
    char dir[MAXDIR];
@@ -119,11 +120,11 @@ QString DirFromPath(QString /*apath*/)
 //   char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(drive) + QString(dir);
+   return Q3CString(drive) + Q3CString(dir);
 }
 //---------------------------------------------------------------------------
 
-QString DirWoDriveFromPath(QString /*apath*/)
+Q3CString DirWoDriveFromPath(Q3CString apath)
 {
 //   char drive[MAXDRIVE];
    char dir[MAXDIR];
@@ -131,12 +132,12 @@ QString DirWoDriveFromPath(QString /*apath*/)
 //   char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(dir);
+   return Q3CString(dir);
 }
 
 //---------------------------------------------------------------------------
 
-QString DriveFromPath(QString /*apath*/)
+Q3CString DriveFromPath(Q3CString apath)
 {
    char drive[MAXDRIVE];
 //   char dir[MAXDIR];
@@ -144,25 +145,25 @@ QString DriveFromPath(QString /*apath*/)
 //   char ext[MAXEXT];
 
 //   fnsplit(apath.c_str(), drive, dir, name, ext);
-   return QString(drive);
+   return Q3CString(drive);
 }
 
 //---------------------------------------------------------------------------
 
-QString WTDDCCommaToDot(QString CommaStr)
+Q3CString WTDDCCommaToDot(Q3CString CommaStr)
 {
     double TempFlt = CommaStr.toFloat();
     char TmpBff[256];
-    if (sprintf(TmpBff,"%12.10g",TempFlt) == EOF) return QString("");
-    return QString(TmpBff);
+	if (sprintf(TmpBff,"%12.10g",TempFlt) == EOF) return Q3CString("");
+	return Q3CString(TmpBff);
 }
 
 //---------------------------------------------------------------------------
-QString WTDDCDotToComma(QString DotStr)
+Q3CString WTDDCDotToComma(Q3CString DotStr)
 {
-  QString r;
+  Q3CString r;
   /* I search a possible , to change it into a .*/
-    for (int i = 0; i < DotStr.length(); i++)
+    for (unsigned int i = 0; i < DotStr.length(); i++)
        if (DotStr[i] == ',') {DotStr[i] = '.'; break;}
     double TmpFlt = atof(DotStr);
     r.setNum(TmpFlt);

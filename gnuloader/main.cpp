@@ -51,7 +51,7 @@ static int e_option_handler(char *argv[],int _optind);
 
 static void usage(char* argv_0);
 static CpuTargetType convtocpu(char* cpu);
-static KwtddStringList loadDataStream(QString fname,QString mfname);
+static KwtddStringList loadDataStream(Q3CString fname,Q3CString mfname);
 static KwtddStringList loadBootProgram(CpuTargetType cpu);
 
 static bool AutoBaudRate(char* portname);
@@ -234,7 +234,7 @@ static int d_option_handler(char *argv[],int _optind)
 }
 static int e_option_handler(char *argv[],int _optind)
 {
-  QString tp(argv[_optind]);
+  Q3CString tp(argv[_optind]);
   uCApp.TabPar->name = tp;
 	if ((uCApp.TabPar->name.length() == 0) || (uCApp.TabPar->name.length() > 8)) {
 		fprintf(stderr,currMsgList[d_option_handler_ERROR]/*"errore optione -e: valore non ammesso: codice troppo lungo.\r\n"*/);
@@ -296,6 +296,7 @@ static CpuTargetType convtocpu(char* cpu)
 	else if (!strcmp(cpu,"H83048FONE_16MHZ") || !strcmp(cpu,"h83048fone_16mhz")) return Ctt_H83048FONE_16MHZ;
 	else if (!strcmp(cpu,"H8S2378_16MHZ") || !strcmp(cpu,"h8s2378_16mhz")) return Ctt_H8S2378_16MHZ;
 	else if (!strcmp(cpu,"H83687_16MHZ") || !strcmp(cpu,"h83687_16mhz")) return Ctt_H83687_16MHZ;
+	else if (!strcmp(cpu,"H836064_16MHZ") || !strcmp(cpu,"h836064_16mhz")) return Ctt_H836064_16MHZ;
 	else if (!strcmp(cpu,"SH27085_10MHZ") || !strcmp(cpu,"sh27085_10mhz")) return Ctt_SH27085_10MHZ;
 	else if (!strcmp(cpu,"H8SX1663_10MHZ") || !strcmp(cpu,"h8sx1663_10mhz")) return Ctt_H8SX1663_10MHZ;
 	else if (!strcmp(cpu,"H8SX1663_12MHZ") || !strcmp(cpu,"h8sx1663_12mhz")) return Ctt_H8SX1663_12MHZ;
@@ -303,7 +304,7 @@ static CpuTargetType convtocpu(char* cpu)
 	else return Ctt_None;
 }
 
-static KwtddStringList loadDataStream(QString fname,QString mfname)
+static KwtddStringList loadDataStream(Q3CString fname,Q3CString mfname)
 {
 	FILE* hf;
   char* pBuff;
@@ -368,7 +369,7 @@ static KwtddStringList loadDataStream(QString fname,QString mfname)
       fprintf(stderr,currMsgList[loadDataStream_MSG05]/*"valore opzioni -a e/o -b e/o -d e/o -e non corretto/i.\n"*/);
       exit(EXIT_FAILURE);
       }
-    Tab = new Tabella(uCApp.TabPar->tsize,uCApp.TabPar->displ,uCApp.TabPar->nb,uCApp.TabPar->name.latin1());
+    Tab = new Tabella(uCApp.TabPar->tsize,uCApp.TabPar->displ,uCApp.TabPar->nb,uCApp.TabPar->name.data());
     if (Tab->Read(mfname)) {
       fprintf(stderr,currMsgList[loadDataStream_MSG06]/*"Mappa %s letta correttamente.\n"*/,mfname.data());
       if (Tab->ConvertTabToA20((unsigned char*)pBuff,PBUFF_SIZE)) {
@@ -900,6 +901,23 @@ static bool DownloadBootProgram(char* portname,KwtddStringList* BootProgram)
 				}
 			StartAddressdtbootpquantum = 0xF780;
 			Sizedtbootpquantum = 0x770;
+			dtbootp->ConvFromRecordQuantum8bit(Prg,NumOfRecord,numofdtbootpquantum,
+				&StartAddressdtbootpquantum,&Sizedtbootpquantum);
+			delete [] Prg;
+			}
+		break;
+		case Ctt_H836064_16MHZ: {
+			dtbootp = new DataStreamPage128byte(_8bit);
+			unsigned int NumOfRecord = BootProgram->Count();
+			Record* Prg = new Record[NumOfRecord];
+			for (unsigned int i = 0; i < NumOfRecord; i++) {
+				Record *PrgLocal;
+				PrgLocal = new Record((*BootProgram)[i]);
+				Prg[i] = (*PrgLocal);
+				delete PrgLocal;
+				}
+			StartAddressdtbootpquantum = 0xF780;
+			Sizedtbootpquantum = 0x6a0;
 			dtbootp->ConvFromRecordQuantum8bit(Prg,NumOfRecord,numofdtbootpquantum,
 				&StartAddressdtbootpquantum,&Sizedtbootpquantum);
 			delete [] Prg;
@@ -1468,6 +1486,14 @@ static bool DownloadTargetProgram(char* portname,KwtddStringList* TargetProgram)
 			dt->ConvFromRecordQuantum8bit(Prg,NumOfRecord,numofUPpquantum,
 				StartAddressofQuantum,SizeofQuantum);
 			break;
+		case Ctt_H836064_16MHZ:
+			dt = new DataStreamPage128byte(_8bit);
+			numofUPpquantum = 1;
+			StartAddressofQuantum[0] = 0x00000000;
+			SizeofQuantum[0] = 0x8000;
+			dt->ConvFromRecordQuantum8bit(Prg,NumOfRecord,numofUPpquantum,
+				StartAddressofQuantum,SizeofQuantum);
+			break;
 		case Ctt_H83048FONE_16MHZ:
 			dt = new DataStreamPage128byte(_8bit);
 			numofUPpquantum = 1;
@@ -1853,7 +1879,7 @@ static void wtddPrintfStringList(KwtddStringList* List)
 
 /*
 	char* q;
-	QCString t(argv[0]);
+	Q3CString t(argv[0]);
 	q = new char[t.length()];
 	strcpy(q,t);
 	printf("%s\n",q);

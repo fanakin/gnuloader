@@ -36,12 +36,12 @@
 
 class EElement : public wtddException {
     public:
-	EElement(QString Mess) : wtddException(Mess) { }
+	EElement(Q3CString Mess) : wtddException(Mess) { }
 } ;         // Exception class
 
 class ETabella : public wtddException {
     public:
-	ETabella(QString Mess) : wtddException(Mess) { }
+	ETabella(Q3CString Mess) : wtddException(Mess) { }
 } ;			// Exception class
 
 class Tabella;
@@ -54,25 +54,25 @@ enum elemtype{undef, table, map, variable};
 class Element {
   protected:
     elemtype id;
-    QString name;
-    QString memo;
+	Q3CString name;
+	Q3CString memo;
     bool readonly;
-    QString xname_on;
-    QString xname_off;
+	Q3CString xname_on;
+	Q3CString xname_off;
     double xmin_on;
     double xmin_off;
     double xmax_on;
     double xmax_off;
     int xbpos;
-    QString yname_on;
-    QString yname_off;
+	Q3CString yname_on;
+	Q3CString yname_off;
     double ymin_on;
     double ymin_off;
     double ymax_on;
     double ymax_off;
     int ybpos;
-    QString zname_on;
-    QString zname_off;
+	Q3CString zname_on;
+	Q3CString zname_off;
     double zmin_on;
     double zmin_off;
     double zmax_on;
@@ -102,15 +102,15 @@ class Element {
     Element();
     virtual ~Element(void) {;}
     elemtype GetId() { return id; }
-    QString GetName() { return name; }
-    QString GetMemo() { return memo; }
+	Q3CString GetName() { return name; }
+	Q3CString GetMemo() { return memo; }
     void SetReadOnly() { readonly = true; }
     bool GetReadOnly() { return readonly; }
-    virtual  void SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-    QString offname, double offmin, double offmax) = 0;
+	virtual  void SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+	Q3CString offname, double offmin, double offmax) = 0;
     virtual  void SetOBT(int xyz,int bitpos,unsigned int idx1, unsigned int idx2) = 0;
     virtual  void SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-      unsigned int idx3, unsigned int idx4,QString onname,QString offname) = 0;
+	  unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname) = 0;
     virtual  void RunOB(int xyz, unsigned int number) = 0;
     virtual  void RunOBT(int xyz, unsigned int number, Element **earr, Tabella *ctab) = 0;
     virtual  void RunOBV(int xyz, unsigned int number, Element **earr, Tabella *ctab) = 0;
@@ -130,10 +130,10 @@ class Table : public Element {
     int addr;
     int size;
     int bytes;
-    QString xname;
+	Q3CString xname;
     double xmin;
     double xmax;
-    QString yname;
+	Q3CString yname;
     double ymin;
     double ymax;
     double visymin;
@@ -145,16 +145,16 @@ class Table : public Element {
   public:
   	Table(int grp,
           int caddr,
-          QString tname,
+		  Q3CString tname,
           int tsize,
           int tbytes,
-          QString txname,
+		  Q3CString txname,
           double txmin,
           double txmax,
-          QString tyname,
+		  Q3CString tyname,
           double tymin,
           double tymax,
-          QString cmemo);
+		  Q3CString cmemo);
   ~Table();
   int GetSize() { return size; }
   double GetXVal(int i);
@@ -169,19 +169,19 @@ class Table : public Element {
   void SetYValN(Tabella *ctab, double val, int i);
   void SetYValD(Tabella *ctab, double val, int i);
   void SetXVal(double val, int i);
-  QString GetXName(){ return xname; }
-  QString GetYName(){ return yname; }
+  Q3CString GetXName(){ return xname; }
+  Q3CString GetYName(){ return yname; }
   double TabMin() { return ymin; }
   double TabMax() { return ymax; }
   void SetTabMin(double v) {visymin = v;}
   void SetTabMax(double v) {visymax = v;}
   bool IsDrawable();
-  virtual void SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax);
+  virtual void SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax);
   virtual  void SetOBT(int xyz,int bitpos,unsigned int idx1, unsigned int idx2);
 
   virtual  void SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname);
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname);
   virtual  void RunOB(int xyz, unsigned int number);
   virtual  void RunOBT(int xyz, unsigned int number, Element **earr, Tabella *ctab);
   virtual  void RunOBV(int xyz, unsigned int number, Element **earr, Tabella *ctab);
@@ -203,13 +203,13 @@ class Map : public Element {
     int xsize;
     int ysize;
     int bytes;
-    QString xname;
+	Q3CString xname;
     double xmin;
     double xmax;
-    QString yname;
+	Q3CString yname;
     double ymin;
     double ymax;
-    QString zname;
+	Q3CString zname;
     double zmin;
     double zmax;
     double viszmin;
@@ -222,20 +222,20 @@ class Map : public Element {
   public:
   	Map(int grp,
     	int caddr,
-        QString mname,
+		Q3CString mname,
         int mxsize,
         int mysize,
         int mbytes,
-        QString mxname,
+		Q3CString mxname,
         double mxmin,
         double mxmax,
-        QString myname,
+		Q3CString myname,
         double mymin,
         double mymax,
-        QString mzname,
+		Q3CString mzname,
         double mzmin,
         double mzmax,
-        QString cmemo);
+		Q3CString cmemo);
 
   ~Map();
   int GetXSize() { return xsize; }
@@ -259,15 +259,15 @@ class Map : public Element {
   double YMin() { return ymin; }
   void SetMapMin(double v) {viszmin = v;}
   void SetMapMax(double v) {viszmax = v;}
-  QString GetXName(){ return xname; }
-  QString GetYName(){ return yname; }
-  QString GetZName(){ return zname; }
+  Q3CString GetXName(){ return xname; }
+  Q3CString GetYName(){ return yname; }
+  Q3CString GetZName(){ return zname; }
   bool IsDrawable();
-  virtual void SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax);
+  virtual void SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax);
   virtual  void SetOBT(int xyz,int bitpos,unsigned int idx1, unsigned int idx2);
   virtual  void SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname);
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname);
   virtual  void RunOB(int xyz, unsigned int number);
   virtual  void RunOBT(int xyz, unsigned int number, Element **earr, Tabella *ctab);
   virtual  void RunOBV(int xyz, unsigned int number, Element **earr, Tabella *ctab);
@@ -286,7 +286,7 @@ class Variable : public Element {
     int gruppo;
     int addr;
     int bytes;
-    QString xname;
+	Q3CString xname;
     double xmin;
     double xmax;
     double supx;
@@ -295,25 +295,25 @@ class Variable : public Element {
   public:
   	Variable(int grp,
           int caddr,
-          QString vname,
+		  Q3CString vname,
           int vbytes,
-          QString vxname,
+		  Q3CString vxname,
           double vxmin,
           double vxmax,
-          QString cmemo);
+		  Q3CString cmemo);
   ~Variable();
-  QString GetVDescr() { return xname; }
+  Q3CString GetVDescr() { return xname; }
   double GetValue(Tabella *ctab);
-  double GetMax(Tabella */*ctab*/){ return xmax; }
-  double GetMin(Tabella */*ctab*/){ return xmin; }
+  double GetMax(Tabella *ctab){ return xmax; }
+  double GetMin(Tabella *ctab){ return xmin; }
   void SetValue(Tabella *ctab, double val, bool undo = true);
   void Increase(Tabella *ctab);
   void Decrease(Tabella *ctab);
-  virtual void SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax);
+  virtual void SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax);
   virtual  void SetOBT(int xyz,int bitpos,unsigned int idx1, unsigned int idx2);
   virtual  void SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname);
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname);
   virtual  void RunOB(int xyz, unsigned int number);
   virtual  void RunOBT(int xyz, unsigned int number, Element **earr, Tabella *ctab);
   virtual  void RunOBV(int xyz, unsigned int number, Element **earr, Tabella *ctab);
@@ -342,7 +342,7 @@ class Tabella {
 
 public :
 
-    Tabella(unsigned int tsize, KaArray<unsigned int>& displ, unsigned int nb,const char *name);
+    Tabella(unsigned int tsize, KaArray<unsigned int>& displ, unsigned int nb, char *name);
     Tabella(const Tabella& atable);
     Tabella& operator =(const Tabella& atable);
     bool operator == (const Tabella& atable);
@@ -371,8 +371,8 @@ public :
     void Undo();
     void UndoClr();
     int UndoCount();
-    QString GetNote();
-    void SetNote(QString notestr);
+	Q3CString GetNote();
+	void SetNote(Q3CString notestr);
 
     // stand alone
 
@@ -388,7 +388,7 @@ private:
     unsigned int displacement;
     int rflag;
     char dbname[20];
-    QString note;
+	Q3CString note;
 //    TList *undolist;
 //    int undostate;
 
@@ -396,7 +396,7 @@ private:
     unsigned int numblocks;
     unsigned int *displarray;
     unsigned int currblock;
-    QString *notes;
+	Q3CString *notes;
 
 
     unsigned char ReadByte(FILE *stream);

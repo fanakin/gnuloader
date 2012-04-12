@@ -5,9 +5,9 @@
 
 #include "WTDDLibreria.h"
 //---------------------------------------------------------------------------
-QString wtddEstraiDallaFine(QString& Str,char Point)
+Q3CString wtddEstraiDallaFine(Q3CString& Str,char Point)
 {
-QString res;
+Q3CString res;
 int Len;
 int count;
 
@@ -78,9 +78,9 @@ for (index = 0; index < n_cifre; index++)
 return res;
 }
 //---------------------------------------------------------------------------
-bool wtddCoerenzaNome(const QString Nome,QString& Device)
+bool wtddCoerenzaNome(const Q3CString Nome,Q3CString& Device)
 {
-QString App(Nome);
+Q3CString App(Nome);
 App.remove(App.find('.'),App.length() - App.find('.') + 1);
 char StringaNome[64];
 int StringaNomeLen = App.length();
@@ -120,7 +120,7 @@ return true;
 }
 
 //---------------------------------------------------------------------------
-bool wtddTrovaFile(const QString& FNam)
+bool wtddTrovaFile(const Q3CString& FNam)
 {
 	int len;
 	DIR* dirp;
@@ -141,9 +141,9 @@ bool wtddTrovaFile(const QString& FNam)
 	return false;
 }
 //---------------------------------------------------------------------------
-QString wtddEstraiDallaFineNum(QString& Str,int NumChar)
+Q3CString wtddEstraiDallaFineNum(Q3CString& Str,int NumChar)
 {
-QString res;
+Q3CString res;
 int Len = Str.length();
 
 res = Str.mid(Len - NumChar,NumChar + 1);

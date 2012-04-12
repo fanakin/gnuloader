@@ -9,9 +9,9 @@
 
 #ifndef ContainersH
 #define ContainersH
-#include <qstring.h>
+#include <q3cstring.h>
 //////////////////////////// Exceptions classes ////////////////////////////////
-// needs qt QString
+// needs qt Q3CString
 ////////////////////////////////////////////////////////////////////////////////
 
 class wtddException
@@ -29,62 +29,62 @@ class wtddException
 
 class EKaShiftReg : public wtddException  {
     public:
-       EKaShiftReg(QString Mess) : wtddException(Mess) { }
+	   EKaShiftReg(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaBuffer : public wtddException  {
     public:
-       EKaBuffer(QString Mess) : wtddException(Mess) { }
+	   EKaBuffer(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaArray : public wtddException  {
     public:
-       EKaArray(QString Mess) : wtddException(Mess) { }
+	   EKaArray(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaArrayID : public wtddException  {
     public:
-       EKaArrayID(QString Mess) : wtddException(Mess) { }
+	   EKaArrayID(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaArrayS : public wtddException  {
     public:
-       EKaArrayS(QString Mess) : wtddException(Mess) { }
+	   EKaArrayS(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaPArray : public wtddException  {
     public:
-       EKaPArray(QString Mess) : wtddException(Mess) { }
+	   EKaPArray(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaPArrayID : public wtddException  {
     public:
-       EKaPArrayID(QString Mess) : wtddException(Mess) { }
+	   EKaPArrayID(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKaPArrayS : public wtddException  {
     public:
-       EKaPArrayS(QString Mess) : wtddException(Mess) { }
+	   EKaPArrayS(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKlList : public wtddException  {
     public:
-       EKlList(QString Mess) : wtddException(Mess) { }
+	   EKlList(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKlDList : public wtddException  {
     public:
-       EKlDList(QString Mess) : wtddException(Mess) { }
+	   EKlDList(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKlTree : public wtddException  {
     public:
-       EKlTree(QString Mess) : wtddException(Mess) { }
+	   EKlTree(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 class EKlPTree : public wtddException  {
     public:
-       EKlPTree(QString Mess) : wtddException(Mess) { }
+	   EKlPTree(Q3CString Mess) : wtddException(Mess) { }
 } ;
 
 /*

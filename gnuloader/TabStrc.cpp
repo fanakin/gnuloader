@@ -68,16 +68,16 @@ Element::Element()
 
 Table::Table(int grp,
           int caddr,
-          QString tname,
+		  Q3CString tname,
           int tsize,
           int tbytes,
-          QString txname,
+		  Q3CString txname,
           double txmin,
           double txmax,
-          QString tyname,
+		  Q3CString tyname,
           double tymin,
           double tymax,
-          QString cmemo) : Element()
+		  Q3CString cmemo) : Element()
 {
     int i;
 
@@ -294,8 +294,8 @@ bool Table::IsDrawable()
     return true;
 }
 
-void Table::SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax)
+void Table::SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax)
 {
 	if (xyz == R_ONBIT_X) {
     	xname_on = onname;
@@ -328,7 +328,7 @@ void Table::SetOBT(int xyz, int bitpos, unsigned int idx1, unsigned int idx2)
     if (xyz == R_ONBIT_Y_A) throw EElement("Table::SetOB Y");
 }
 void Table::SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname)
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname)
 {
 	if (xyz == R_ONBIT_X_V) {
         xname_on = onname;
@@ -463,12 +463,12 @@ void Table::RunArray(int mode,Table *el,Tabella *ctab)
 	if (mode == R_ARRAY_Y) throw EElement("Table::RunArray");
 }
 
-double Table::GetMinMax(Tabella */*ctab*/)
+double Table::GetMinMax(Tabella *ctab)
 {
 	throw EElement("Table::GetMinMax");
 }
 
-unsigned int Table::GetBinImg(Tabella */*ctab*/)
+unsigned int Table::GetBinImg(Tabella *ctab)
 {
 	throw EElement("Table::GetBinImg");
 }
@@ -511,20 +511,20 @@ void Table::SetLimits(double val,int mode)
 
 Map::Map(int grp,
     	int caddr,
-        QString mname,
+		Q3CString mname,
         int mxsize,
         int mysize,
         int mbytes,
-        QString mxname,
+		Q3CString mxname,
         double mxmin,
         double mxmax,
-        QString myname,
+		Q3CString myname,
         double mymin,
         double mymax,
-        QString mzname,
+		Q3CString mzname,
         double mzmin,
         double mzmax,
-        QString cmemo) : Element()
+		Q3CString cmemo) : Element()
 {
     id = map;
     gruppo = grp & 0x0000FFFF;
@@ -738,8 +738,8 @@ bool Map::IsDrawable()
 }
 
 
-void Map::SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax)
+void Map::SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax)
 {
 	if (xyz == R_ONBIT_X) {
     	xname_on = onname;
@@ -786,7 +786,7 @@ void Map::SetOBT(int xyz, int bitpos, unsigned int idx1, unsigned int idx2)
 }
 
 void Map::SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname)
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname)
 {
 	if (xyz == R_ONBIT_X_V) {
     	xname_on = onname;
@@ -985,12 +985,12 @@ void Map::RunArray(int mode,Table *el,Tabella *ctab)
      }
 }
 
-double Map::GetMinMax(Tabella */*ctab*/)
+double Map::GetMinMax(Tabella *ctab)
 {
 	throw EElement("Map::GetMinMax");
 }
 
-unsigned int Map::GetBinImg(Tabella */*ctab*/)
+unsigned int Map::GetBinImg(Tabella *ctab)
 {
     throw EElement("Map::GetBinImg");
 }
@@ -1040,12 +1040,12 @@ void Map::SetLimits(double val,int mode)
 
 Variable::Variable(int grp,
           int caddr,
-          QString vname,
+		  Q3CString vname,
           int vbytes,
-          QString vxname,
+		  Q3CString vxname,
           double vxmin,
           double vxmax,
-          QString cmemo) : Element()
+		  Q3CString cmemo) : Element()
 {
     id = variable;
     gruppo = grp & 0x0000FFFF;
@@ -1205,8 +1205,8 @@ void Variable::Decrease(Tabella *ctab)
     }
 }
 
-void Variable::SetOB(int xyz,int bitpos,QString onname, double onmin, double onmax,
-  		QString offname, double offmin, double offmax)
+void Variable::SetOB(int xyz,int bitpos,Q3CString onname, double onmin, double onmax,
+		Q3CString offname, double offmin, double offmax)
 {
 	if (xyz == R_ONBIT_X) {
     	xname_on = onname;
@@ -1221,14 +1221,14 @@ void Variable::SetOB(int xyz,int bitpos,QString onname, double onmin, double onm
     if (xyz == R_ONBIT_Z) throw EElement("Variable::SetOB Z");
 }
 
-void Variable::SetOBT(int xyz, int /*bitpos*/, unsigned int /*idx1*/, unsigned int /*idx2*/)
+void Variable::SetOBT(int xyz, int bitpos, unsigned int idx1, unsigned int idx2)
 {
 	if (xyz == R_ONBIT_X_A) throw EElement("Variable::SetOBT X");
     if (xyz == R_ONBIT_Y_A) throw EElement("Variable::SetOBT Y");
 }
 
 void Variable::SetOBV(int xyz,int bitpos,unsigned int idx1, unsigned int idx2,
-    	unsigned int idx3, unsigned int idx4,QString onname,QString offname)
+		unsigned int idx3, unsigned int idx4,Q3CString onname,Q3CString offname)
 {
 	if (xyz == R_ONBIT_X_V) {
      	xname_on = onname;
@@ -1263,7 +1263,7 @@ void Variable::RunOB(int xyz,unsigned int number)
     if (xyz == R_ONBIT_Z) throw EElement("Variable::RunOB Z");
 }
 
-void Variable::RunOBT(int xyz, unsigned int /*number*/, Element **/*earr*/, Tabella */*ctab*/)
+void Variable::RunOBT(int xyz, unsigned int number, Element **earr, Tabella *ctab)
 {
     if (xyz == R_ONBIT_X_A) throw EElement("Variable::RunOBT X");
     if (xyz == R_ONBIT_Y_A) throw EElement("Variable::RunOBT Y");
@@ -1295,7 +1295,7 @@ void Variable::RunMinMax(int mode,double value)
     else throw EElement("Variable::RunMinMax");
 }
 
-void Variable::RunArray(int mode,Table */*el*/,Tabella */*ctab*/)
+void Variable::RunArray(int mode,Table *el,Tabella *ctab)
 {
  	if (mode == R_ARRAY_X) throw EElement("Variable::RunArray");
 	if (mode == R_ARRAY_Y) throw EElement("Variable::RunArray");
@@ -1356,14 +1356,14 @@ void Variable::SetLimits(double val,int mode)
 /////////////////////////////////// tabella //////////////////////////////////
 
 
-Tabella::Tabella(unsigned int tsize, KaArray<unsigned int>& displ, unsigned int nb, const char *name)
+Tabella::Tabella(unsigned int tsize, KaArray<unsigned int>& displ, unsigned int nb, char *name)
 {
     size = tsize;
     numblocks = nb;
     if (displ.Count() != (int)nb) throw ETabella("num blocks");
     displarray = new unsigned int[numblocks];
     blocks = new unsigned char*[numblocks];
-    notes = new QString[numblocks];
+	notes = new Q3CString[numblocks];
     for (unsigned int i = 0; i < numblocks; i++ ) {
        notes[i] = "";
        blocks[i] = new unsigned char[size];
@@ -1395,7 +1395,7 @@ Tabella::Tabella(const Tabella& atable)
     numblocks = atable.numblocks;
     displarray = new unsigned int[numblocks];
     blocks = new unsigned char*[numblocks];
-    notes = new QString[numblocks];
+	notes = new Q3CString[numblocks];
     for (i = 0; i < numblocks; i++ ) {
        notes[i] = atable.notes[i];
        blocks[i] = new unsigned char[size];
@@ -1479,7 +1479,7 @@ Tabella& Tabella::operator =(const Tabella& atable)
     numblocks = atable.numblocks;
     displarray = new unsigned int[numblocks];
     blocks = new unsigned char*[numblocks];
-    notes = new QString[numblocks];
+	notes = new Q3CString[numblocks];
     for (i = 0; i < numblocks; i++ ) {
        notes[i] = atable.notes[i];
        blocks[i] = new unsigned char[size];
@@ -1552,7 +1552,7 @@ bool Tabella::Write(char *fname)
        for(i = 0; i < size; i++) flag |= fprintf(stream,"%4u",Array[i]);
 
        fputc(1, stream);
-       fprintf(stream,"%s",note.latin1());
+       fprintf(stream,"%s",note.data());
     }
     else {
 
@@ -1578,7 +1578,7 @@ bool Tabella::Write(char *fname)
           flag |= fprintf(stream,"%4u",(unsigned char) (notes[k].length() & 0x000000FF));
 
           fputc(1, stream);
-          fprintf(stream,"%s",notes[k].latin1());
+          fprintf(stream,"%s",notes[k].data());
           fputc(1, stream);
        }
     }
@@ -1679,7 +1679,7 @@ bool Tabella::Read(const char *fname)
           buff[0] = (char) fgetc(stream);
           buff[1] = 0;
           if (feof(stream)) break;
-          note += QString(buff);
+		  note += Q3CString(buff);
        }
        notes[currblock/*0*/] = note;
     }
@@ -1732,7 +1732,7 @@ bool Tabella::Read(const char *fname)
           for(i = 0; i < slen; i++) {
              buff[0] = (char) fgetc(stream);
              buff[1] = 0;
-             notes[k] += QString(buff);
+			 notes[k] += Q3CString(buff);
           }
           if (fgetc(stream) != 1) {
               return false;
@@ -1755,7 +1755,7 @@ bool Tabella::Read(const char *fname)
     return true;
 }
 
-bool Tabella::Send(portdef /*aport*/)
+bool Tabella::Send(portdef aport)
 {
 //    char id[10];
 //    unsigned long address;
@@ -1810,7 +1810,7 @@ bool Tabella::Send(portdef /*aport*/)
 //   if (mb_res == IDYES) {
 //      TPasswordForm *pf = new TPasswordForm(Application);
 //      pf->ShowModal();
-//      QString pw =  pf->PasswordMaskEdit->Text;
+//      Q3CString pw =  pf->PasswordMaskEdit->Text;
 //      pf->Free();
 //      if (!acom.SendPassword(pw)) return false;
 //   }
@@ -1821,7 +1821,7 @@ bool Tabella::Send(portdef /*aport*/)
   return false;
 }
 
-bool Tabella::Receive(portdef /*aport*/)
+bool Tabella::Receive(portdef aport)
 {
 //    unsigned long address;
 //    unsigned int len;
@@ -1934,7 +1934,7 @@ void Tabella::SetSVal(int nbytes, int addr, int val, bool undo)
     else throw ETabella("Bad dimension");
 }
 
-void Tabella::SetVal(int nbytes, int addr, unsigned int val, bool /*undo*/)
+void Tabella::SetVal(int nbytes, int addr, unsigned int val, bool undo)
 {
     unsigned int prev;
 //    UndoAtom *ua;
@@ -2052,12 +2052,12 @@ void Tabella::EndUndoBlock()
 //    undolist->Add(ua);
 }
 
-QString Tabella::GetNote()
+Q3CString Tabella::GetNote()
 {
    return note;
 }
 
-void Tabella::SetNote(QString notestr)
+void Tabella::SetNote(Q3CString notestr)
 {
    note = notestr;
    notes[currblock] = note;
@@ -2093,7 +2093,7 @@ void Tabella::ClearAll()
 
     for(k = 0; k < numblocks; k++) {
        for(i = 0; i < size; i++) blocks[k][i] = 0;
-       notes[k] = "";
+       notes[k] = 0;
     }
 
     rflag = 0;
@@ -2148,21 +2148,21 @@ unsigned char* Tabella::ConvertTabToA20(unsigned char* destBuff,unsigned long Si
 {
 
 if (!destBuff || !Size) return false;
-QString Carat(""),NumBytes("");
+Q3CString Carat(""),NumBytes("");
 int RecordNumber = this->GetSize()  /  16;
 bool ExistLastRecord = ((this->GetSize() % 16) != 0);
 unsigned int LocStart = 0;
 for (int i = 0; i < RecordNumber; i++)
     {
     unsigned char Chks;
-    QString Temp(""),t("");
+	Q3CString Temp(""),t("");
     if ((this->GetDisplacement() + LocStart) < 0x10000)
        {
        Carat = "S1";
        NumBytes = "13";
        Chks = 0x13;
-       QString P;
-       QString t;
+	   Q3CString P;
+	   Q3CString t;
        P.sprintf("%4.4x",(this->GetDisplacement() + LocStart));
        Temp += Carat;
        Temp += NumBytes;
@@ -2175,7 +2175,7 @@ for (int i = 0; i < RecordNumber; i++)
        Carat = "S2";
        NumBytes = "14";
        Chks = 0x14;
-       QString P("");
+	   Q3CString P("");
        P.sprintf("%6.6x",(this->GetDisplacement() + LocStart));
        Temp += Carat;
        Temp += NumBytes;
@@ -2205,14 +2205,14 @@ if (ExistLastRecord)
    {
    unsigned char Nbytes = (unsigned char) (this->GetSize() - LocStart);
    unsigned char Chks;
-   QString Temp(""),t("");
+   Q3CString Temp(""),t("");
    if ((this->GetDisplacement() + LocStart) < 0x10000)
       {
       Carat = "S1";
       t.sprintf("%2.2x",(Nbytes + 3));
       NumBytes = t;
       Chks = Nbytes;
-      QString P("");
+	  Q3CString P("");
        P.sprintf("%4.4x",(this->GetDisplacement() + LocStart));
       Temp += Carat;
       Temp += NumBytes;
@@ -2226,7 +2226,7 @@ if (ExistLastRecord)
       t.sprintf("%2.2x",(Nbytes + 3));
       NumBytes = t;
       Chks = Nbytes;
-      QString P("");
+	  Q3CString P("");
        P.sprintf("%6.6x",(this->GetDisplacement() + LocStart));
       Temp += Carat;
       Temp += NumBytes;

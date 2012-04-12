@@ -19,18 +19,18 @@
 
 
 #ifdef _INSTANTIATE_TEMPLATE_
-#include <qstring.h>
+#include <q3cstring.h>
 template class KaArray<char>;
 template class KaArrayID<char>;
 template class KaPArray< KaArray<char> >;
 template class KaPArray< KaArrayID<char> >;
 template class KaArray<unsigned int>;
-template class KaArray<QString>;
+template class KaArray<Q3CString>;
 #endif
 
 typedef KaArrayID<char> KwtddString;
 typedef KaPArray< KaArrayID<char> > KwtddStringList;
-//typedef KaArray<unsigned int> Kdisplacement_t;
-#define Kdisplacement_t	KaArray<unsigned int>
+typedef KaArray<unsigned int> Kdisplacement_t;
+
 
 #endif

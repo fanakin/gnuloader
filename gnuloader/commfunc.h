@@ -4,6 +4,7 @@
 #ifndef commfuncH
 #define commfuncH 
 
+#include <q3cstring.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -26,23 +27,23 @@ void copyfile(char *destination, char *source);
 
 //---------------- File Names Manipulation ----------------------------------
 
-QString FileFromPath(QString apath);
+Q3CString FileFromPath(Q3CString apath);
 
-QString FileWoExtFromPath(QString apath);
+Q3CString FileWoExtFromPath(Q3CString apath);
 
-QString ExtFromPath(QString apath);   // include .
+Q3CString ExtFromPath(Q3CString apath);   // include .
 
-QString DirFromPath(QString apath);   // include "\\" at the end !
+Q3CString DirFromPath(Q3CString apath);   // include "\\" at the end !
 
-QString DirWoDriveFromPath(QString apath);  // include "\\" in front & at the end !
+Q3CString DirWoDriveFromPath(Q3CString apath);  // include "\\" in front & at the end !
 
-QString DriveFromPath(QString apath);  // include : & without "\\"
+Q3CString DriveFromPath(Q3CString apath);  // include : & without "\\"
 
 //---------------- Float Number Manipulation -------------------------------
 
-QString WTDDCCommaToDot(QString CommaStr); // in a flaoting point it changes ',' into '.'
+Q3CString WTDDCCommaToDot(Q3CString CommaStr); // in a flaoting point it changes ',' into '.'
 
-QString WTDDCDotToComma(QString DotStr); // in a floating point it changes '.' into ','
+Q3CString WTDDCDotToComma(Q3CString DotStr); // in a floating point it changes '.' into ','
 
 int WTDDRoundSLong(double In); // rounds the double to the nearest int (or signed long)
 
