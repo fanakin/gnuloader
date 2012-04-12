@@ -1,0 +1,8 @@
+Compamy : Aurion s.r.l
+Date : 09.02.2005 (month.day.year)
+Version : 0.1.5.3;
+Features:
+	-)added support for arn45 board with full external flash chips erasing feature.
+Version : 0.1.5.1;
+Features:
+	-)Added capabilites to work on ttyUSBx (x in [0,1,2,3,4,5,6,7])
