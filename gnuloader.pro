@@ -30,20 +30,19 @@ SOURCES += ./gnuloader/TabStrc.cpp
 SOURCES += ./gnuloader/WTDDLibreria.cpp
 SOURCES += ./gnuloader/command018um.cpp
 
-INCLUDEPATH = . ./gnuloader ../../../library
+INCLUDEPATH = . ./gnuloader ../../../library/arnlib
 
 # if we want idps, uncomment the following line:
 #
 #CONFIG += idps
 #
 
-LIBS = -L ../../../library
 win32:release { LIBS += -L ..\library\release }
 win32:debug { LIBS += -L ..\library\debug }
 
 win32:LIBS += -lws2_32 -lopengl32 -lglu32
 
-unix:LIBS += -L ../../../library -larn
+unix:LIBS += -L ../../../library/arnlib -larn
 
 QMAKE_CXXFLAGS_DEBUG += -g -O0
 QMAKE_CXXFLAGS_RELEASE += -O2
